@@ -41,3 +41,27 @@ public:
         return v;
     }
 };
+
+// optimal solution
+class Solution {
+public:
+    vector<int> getSumAbsoluteDifferences(vector<int>& nums) {
+        int n=nums.size();
+        vector<int>result(n,0);int sum=0;
+         // Calculate cumulative sum from the left
+       int leftSum = 0;
+        for (int i = 0; i < n; ++i) {
+            leftSum += nums[i];
+            result[i] += (i + 1) * nums[i] - leftSum;
+        }
+
+        // Calculate cumulative sum from the right
+        int rightSum = 0;
+        for (int i = n - 1; i >= 0; --i) {
+            rightSum += nums[i];
+            result[i] += rightSum - (n - i) * nums[i];
+        }
+
+        return result;
+    }
+};
