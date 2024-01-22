@@ -55,3 +55,32 @@ public:
     }
 
 };
+
+//optimal
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int>ans;
+        priority_queue<pair<int,int>>heap;
+        int n=nums.size();
+
+        for(int i=0;i<k;i++)//push k elements in queue
+        {
+            heap.push({nums[i],i});
+        }
+
+        ans.push_back(heap.top().first);
+        
+        for(int i=k;i<n;i++){
+            heap.push({nums[i],i});
+
+            while(heap.top().second<=i-k)
+            {
+                heap.pop();
+
+            }
+            ans.push_back(heap.top().first);
+        }
+        return ans;
+    }
+};
